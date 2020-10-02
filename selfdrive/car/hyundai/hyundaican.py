@@ -1,3 +1,4 @@
+import copy
 import crcmod
 from selfdrive.car.hyundai.values import CAR, CHECKSUM
 
