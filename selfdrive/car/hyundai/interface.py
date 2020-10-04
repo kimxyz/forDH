@@ -78,39 +78,22 @@ class CarInterface(CarInterfaceBase):
     elif candidate == CAR.HYUNDAI_GENESIS:
       ret.mass = 2060. + STD_CARGO_KG
       ret.wheelbase = 3.01
-      ret.steerRatio = 14.0
+      ret.steerRatio = 13.8
       ret.steerActuatorDelay = 0.3
       ret.steerRateCost = 0.6
       ret.steerLimitTimer = 2.5
       #lqr 조향 시작
       ret.lateralTuning.init('lqr')
-      ret.lateralTuning.lqr.scale = 1500
-      ret.lateralTuning.lqr.ki = 0.025
+      ret.lateralTuning.lqr.scale = 1950
+      ret.lateralTuning.lqr.ki = 0.015
       ret.lateralTuning.lqr.a = [0., 1., -0.22619643, 1.21822268]
       ret.lateralTuning.lqr.b = [-1.92006585e-04, 3.95603032e-05]
       ret.lateralTuning.lqr.c = [1., 0.]
-      ret.lateralTuning.lqr.k = [-110., 451.]
-      ret.lateralTuning.lqr.l = [0.33, 0.318]
-      ret.lateralTuning.lqr.dcGain = 0.00225
+      ret.lateralTuning.lqr.k = [-100., 450.]
+      ret.lateralTuning.lqr.l = [0.220, 0.318]
+      ret.lateralTuning.lqr.dcGain = 0.00274
       #lqr 조향 종료 
-   
-      # INDI
-      # -----------------------------------------------------------------------------
-      # outer and inner are gains. Higher values = more steering
-      # timeconstant is smoothing. Higher values == more smoothing
-      # actuatoreffectiveness is how much it steers. Lower values == more steering
-      # 아래부터 인디 주석제거 위 lqr 주석처리
-      #ret.lateralTuning.init('indi')
-      #ret.lateralTuning.indi.innerLoopGain = 3.25
-      #ret.lateralTuning.indi.outerLoopGain = 2.75
-      #ret.lateralTuning.indi.timeConstant = 2.0
-      #ret.lateralTuning.indi.actuatorEffectiveness = 1.7
-
-      #ret.lateralTuning.pid.kf = 0.00005
-      #ret.lateralTuning.pid.kd = 0.003
-      #ret.lateralTuning.pid.kpBP, ret.lateralTuning.pid.kpV = [0], [0.30]
-      #ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kiV = [0], [0.02]  
-      #인디 종료. 줄 맞춤 
+  
     elif candidate in [CAR.GENESIS_G80]:
       ret.mass = 2200
       ret.wheelbase = 3.15
