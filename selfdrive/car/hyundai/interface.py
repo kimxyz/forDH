@@ -78,7 +78,7 @@ class CarInterface(CarInterfaceBase):
     elif candidate == CAR.HYUNDAI_GENESIS:
       ret.mass = 2060. + STD_CARGO_KG
       ret.wheelbase = 3.01
-      ret.steerRatio = 14.4
+      ret.steerRatio = 14.0
       ret.steerActuatorDelay = 0.3
       ret.steerRateCost = 0.55
       ret.steerLimitTimer = 2.5
