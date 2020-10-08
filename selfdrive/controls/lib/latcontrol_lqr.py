@@ -1,4 +1,3 @@
-from selfdrive.ntune import nTune
 import numpy as np
 from selfdrive.controls.lib.drive_helpers import get_steer_max
 from common.numpy_fast import clip
@@ -26,7 +25,7 @@ class LatControlLQR():
     self.sat_limit = CP.steerLimitTimer
 
     self.reset()
-    self.tune = nTune(CP, self) # 추가
+    
   def reset(self):
     self.i_lqr = 0.0
     self.output_steer = 0.0
