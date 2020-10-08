@@ -11,6 +11,7 @@ from common.params import Params
 from common.numpy_fast import interp
 import cereal.messaging as messaging
 from cereal import log
+from selfdrive.ntune import nTune
 
 LaneChangeState = log.PathPlan.LaneChangeState
 LaneChangeDirection = log.PathPlan.LaneChangeDirection
@@ -87,6 +88,8 @@ class PathPlanner():
     self.lane_change_BSM = LaneChangeBSM.off
     self.prev_torque_applied = False
 
+    self.tune = nTune(CP)
+    
   def setup_mpc(self):
     self.libmpc = libmpc_py.libmpc
     self.libmpc.init(MPC_COST_LAT.PATH, MPC_COST_LAT.LANE, MPC_COST_LAT.HEADING, self.steer_rate_cost)
@@ -268,7 +271,8 @@ class PathPlanner():
     #   self.path_offset_i = 0.0
 
     # account for actuation delay
-    self.cur_state = calc_states_after_delay(self.cur_state, v_ego, angle_steers - angle_offset, curvature_factor, self.steerRatio, CP.steerActuatorDelay)
+    self.cur_state = calc_states_after_delay(self.cur_state, v_ego, angle_steers - angle_offset, curvature_factor, self.steerRatio, 
+                                             self.tune.get('steerActuatorDelay'))
 
     v_ego_mpc = max(v_ego, 5.0)  # avoid mpc roughness due to low speed
     self.libmpc.run_mpc(self.cur_state, self.mpc_solution,
